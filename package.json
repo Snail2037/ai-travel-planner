@@ -1,0 +1,10 @@
+{
+  "name": "travel-copilot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chat-driven AI travel planning web app MVP.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs"
+  }
+}
