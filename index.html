@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel Copilot</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <section id="landingPage" class="landing-page" aria-label="Travel Copilot home">
+      <header class="landing-nav">
+        <div class="logo-mark">◒ Travel Copilot</div>
+        <nav aria-label="Landing navigation">
+          <a href="#discover">Discover</a>
+          <a href="#about">About</a>
+        </nav>
+        <button id="myTripsButton" type="button">▱ My Trips</button>
+      </header>
+
+      <div class="hero-copy">
+        <span class="hero-pill">✦ AI-Powered Trip Builder</span>
+        <h1>Your Personal<br /><em>AI Travel Agent.</em></h1>
+        <p>Tell me where in the U.S. you're going, what you want to do, and I'll build a personalized itinerary with real places, shows, food, and weather context.</p>
+        <form id="landingForm" class="hero-search">
+          <input id="landingInput" autocomplete="off" value="Plan a 3-day trip to Chicago" aria-label="Describe your trip" />
+          <button type="submit">✦ Explore</button>
+        </form>
+        <div class="prompt-row" aria-label="Suggested prompts">
+          <button type="button">4-day Florida trip with clubs and Cuban food</button>
+          <button type="button">2 days in Illinois with comedy and attractions</button>
+          <button type="button">5-day California beaches and restaurants</button>
+          <button type="button">3-day Nevada shows and nightlife</button>
+        </div>
+      </div>
+
+      <div class="ticker" aria-hidden="true">
+        <span>Chicago, Illinois</span>
+        <span>Austin, Texas</span>
+        <span>Miami, Florida</span>
+        <span>Las Vegas, Nevada</span>
+        <span>Los Angeles, California</span>
+        <span>Nashville, Tennessee</span>
+      </div>
+    </section>
+
+    <main id="plannerApp" class="app-shell is-hidden">
+      <nav class="icon-rail" aria-label="Primary navigation">
+        <button type="button" aria-label="Collapse sidebar">◧</button>
+        <button type="button" aria-label="Create trip">＋</button>
+        <button type="button" aria-label="Messages">▢</button>
+        <div class="rail-spacer"></div>
+        <button type="button" aria-label="Map">♧</button>
+        <button type="button" aria-label="Profile">♙</button>
+        <button type="button" aria-label="More">•••</button>
+      </nav>
+
+      <aside class="sidebar" aria-label="Trip chat">
+        <header class="planner-title">
+          <button type="button" aria-label="Trip menu">⌄</button>
+          <div>
+            <h1 id="heroTitle">Plan a 3-day trip to Texas</h1>
+            <p id="brandSubtitle">Austin, Texas adaptive plan</p>
+          </div>
+        </header>
+
+        <section class="source-pill" aria-label="Planning source">
+          <span>▦</span>
+          <strong>Activities</strong>
+          <span class="source-ok">○</span>
+        </section>
+
+        <section class="trip-brief" aria-label="Trip brief">
+          <div>
+            <span class="label">Days</span>
+            <strong id="briefDates">3 days</strong>
+          </div>
+          <div>
+            <span class="label">Style</span>
+            <strong id="briefStyle">Food, comedy, nightlife</strong>
+          </div>
+          <div>
+            <span class="label">Budget</span>
+            <strong id="briefBudget">$1,200</strong>
+          </div>
+        </section>
+
+        <section class="chat-panel" aria-label="Copilot conversation">
+          <div id="messages" class="messages"></div>
+          <div id="intakeActions" class="intake-actions is-hidden" aria-label="Quick planning answers">
+            <button type="button">BWI · Jun 12-15 · 2 travelers · comedy, food, skyline views · ~$2,400</button>
+            <button type="button">JFK · next weekend · 1 traveler · nightlife, museums, restaurants · budget-smart</button>
+            <button type="button">LAX · 4 days · 2 travelers · beaches, clubs, food · flexible budget</button>
+          </div>
+          <form id="chatForm" class="chat-form">
+            <input
+              id="chatInput"
+              name="message"
+              autocomplete="off"
+              placeholder="e.g. Plan a 4-day trip to Florida..."
+              aria-label="Message Travel Copilot"
+            />
+            <button type="submit" aria-label="Send message">➤</button>
+          </form>
+        </section>
+      </aside>
+
+      <section class="workspace" aria-label="Itinerary workspace">
+        <header class="topbar">
+          <div class="chip-row" aria-label="Trip controls">
+            <span class="chip">⌖ <strong id="selectedDayTitle">Austin, Texas</strong></span>
+            <span class="chip">▣ <strong id="selectedWeather">Live weather</strong></span>
+            <span class="chip">♙ <strong>2 travelers</strong></span>
+            <span class="chip readiness-chip" id="readinessChip">Needs details</span>
+            <button id="budgetButton" class="chip chip-button" type="button">$$</button>
+            <button id="rainButton" class="chip chip-button" type="button">Rain mode</button>
+          </div>
+          <div class="top-actions" aria-label="Booking controls">
+            <span id="budgetDelta" class="trip-total">~$0</span>
+            <button id="resetButton" class="book-button" type="button">Reset</button>
+          </div>
+        </header>
+
+        <section id="intakeCanvas" class="intake-canvas" aria-label="Planning questions">
+          <div class="intake-card">
+            <p class="eyebrow">Before I build</p>
+            <h2>Just need a few details first.</h2>
+            <ol>
+              <li><strong>Where are you flying from?</strong> City or airport is fine.</li>
+              <li><strong>What dates?</strong> Include the year if you know it.</li>
+              <li><strong>How many travelers?</strong></li>
+              <li><strong>Any must-dos?</strong> Comedy, clubs, food, museums, attractions, beaches, sports?</li>
+              <li><strong>Budget range?</strong> I’ll keep pricing in USD.</li>
+            </ol>
+          </div>
+        </section>
+
+        <div class="view-switcher is-hidden" id="dayTabs" aria-label="Planner views"></div>
+
+        <section class="planner-board is-hidden" aria-label="Itinerary">
+          <div class="board-header">
+            <div>
+              <p class="eyebrow">Itinerary</p>
+              <h2 id="boardTitle">Day-by-day plan</h2>
+            </div>
+            <button type="button" class="share-button">Share</button>
+          </div>
+
+          <div id="timeline" class="timeline"></div>
+        </section>
+
+        <aside class="planner-meta is-hidden" aria-label="Trip intelligence">
+          <section class="signals-panel" aria-label="Live signals">
+            <h3>Live Signals</h3>
+            <div id="signals" class="signals"></div>
+          </section>
+          <section class="budget-panel" aria-label="Budget intelligence">
+            <div class="budget-head">
+              <h3>Budget</h3>
+              <span id="dailySpend">$0 planned</span>
+            </div>
+            <div class="meter">
+              <span id="budgetMeter"></span>
+            </div>
+            <div id="budgetBreakdown" class="budget-breakdown"></div>
+          </section>
+          <div class="route-summary">
+            <strong id="routeSummary">Downtown loop</strong>
+            <span id="routeTime">42 min drive/transit</span>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
